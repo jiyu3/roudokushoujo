@@ -1,0 +1,20 @@
+HTTP/1.1 404 Not Found
+Cache-Control: no-cache, private
+Content-Type: application/json; charset=utf-8
+Date: Sun, 23 Feb 2014 23:53:53 GMT
+Server: nginx/1.4.4
+Status: 404 Not Found
+X-Rack-Cache: miss
+X-Request-Id: b82d843b508fa060a1f1c0bb637e40f6
+X-Runtime: 0.016769
+X-UA-Compatible: IE=Edge,chrome=1
+Content-Length: 151
+Connection: keep-alive
+
+{
+  "error": {
+    "type": "invalid_request_error",
+    "message": "該当する顧客がありません: cus_eS6dGfa8BeUlbS",
+    "param": "id"
+  }
+}

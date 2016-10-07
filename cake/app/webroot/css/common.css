@@ -1,0 +1,115 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	font-family: 'ヒラギノ明朝ProN W3', 'Hiragino Mincho Pro', YuMincho, '游明朝', serif;
+}
+
+/* header start */
+header {
+	z-index: 2;
+	top: 30px;
+	left: 48px;
+	position: absolute;
+}
+
+header ul {
+	list-style:none;
+}
+
+header li {
+	float:left
+}
+
+.link_button {
+	margin-left: 10px;
+}
+/* header end */
+
+/* contents start */
+#content {
+	position: relative;
+	width: 815px;
+	height: 656px;
+	background-image: url("/img/BG_frame_1.png");
+	margin: 0 auto;
+}
+
+#main {
+	z-index: 1;
+	position: absolute;
+	width: 640px;
+	height: 480px;
+	top: 89px;
+	left: 89px;
+	background-color: white;
+}
+
+#main article {
+	text-align: center;
+}
+
+h2, #headline {
+	font-family: 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', YuGothic, '游ゴシック', sans-serif;
+}
+
+.error-message, .error {
+	color: red;
+}
+/* contents end */
+
+/* form start */
+form input:not([type='image']):not([type='checkbox']):not([type='button']) {
+	width: 250px;
+	font-size: 14px;
+	margin-top: 5px;
+	text-align: center;
+}
+
+form label {
+	display: block;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	font-family: 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', YuGothic, '游ゴシック', sans-serif;
+}
+
+form .checkbox label {
+	font-size: 12px;
+	font-weight: normal;
+}
+
+form select {
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+form div.input {
+	margin-bottom: 15px;
+}
+
+form div.checkbox {
+	position: relative;
+	width: 100%;
+	height: 40px;
+}
+
+form div.submit {
+	margin-bottom: 10px;
+}
+/* form end */
+
+/* footer start */
+footer {
+	position: absolute;
+	border-top: 1px solid;
+	text-align: center;
+	top: 525px;
+	width: 600px;
+	left: 105px;
+	z-index: 1;
+	font-size: 12px;
+	font-family: 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', YuGothic, '游ゴシック', sans-serif;
+}
+/* footer end */

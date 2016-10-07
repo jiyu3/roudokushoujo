@@ -1,0 +1,368 @@
+{
+  "name": "webpay",
+  "apiVersion": "v1",
+  "baseUrl": "https://api.webpay.jp",
+  "operations": {
+    "account.retrieve": {
+      "httpMethod": "GET",
+      "uri": "/v1/account",
+      "summary": "アカウント情報の取得",
+      "parameters": {
+      }
+    },
+    "account.delete_data": {
+      "httpMethod": "DELETE",
+      "uri": "/v1/account/data",
+      "summary": "テスト環境のデータの全削除",
+      "parameters": {
+      }
+    },
+    "charges.create": {
+      "httpMethod": "POST",
+      "uri": "/v1/charges",
+      "summary": "新しい課金の作成",
+      "parameters": {
+        "amount": {
+          "location": "postField",
+          "type": "integer",
+          "required": true,
+          "description": "<strong>1円</strong>単位で正の整数で表現される課金額。推奨する最小課金額は50円で、これより低い金額を指定すると手数料のほうが高くなるので推奨されません。"
+        },
+        "currency": {
+          "location": "postField",
+          "type": "string",
+          "required": true,
+          "description": "3文字のISOコードで規定されている通貨。現在は、\"jpy\"(日本円)のみ対応しています。"
+        },
+        "customer": {
+          "location": "postField",
+          "type": "string",
+          "required": false,
+          "description": "この課金で請求を行う既存の顧客のID。"
+        },
+        "card": {
+          "location": "postField",
+          "type": [
+            "array",
+            "string"
+          ],
+          "required": false,
+          "description": "この課金で請求を行うクレジットカードの情報。このカード情報は、tokenもしくはカード情報を含んだハッシュ（ディクショナリ）のどちらでもかまいません。下のオプションの全ての情報が必要というわけではありませんが、クレジットカード詐欺を防ぐためには、できるだけ多くの情報を照会することが有効な対策となります。"
+        },
+        "description": {
+          "location": "postField",
+          "type": "string",
+          "required": false,
+          "description": "課金オブジェクトに添付することのできる任意の文字列。この文字列は、ウェブ上で課金を管理する際に、課金オブジェクトとともに表示されます。後でトラッキングするために、ユーザーのIDやemailアドレス等を記載しておくと良いかもしれません。"
+        },
+        "capture": {
+          "location": "postField",
+          "type": "boolean",
+          "required": false,
+          "description": "すぐに実売上にするか、仮売上として後で実売上化するかを指定します。falseの場合に与信のみが行われ、後で「仮売上の実売上化」をすることで実売上化できます。標準で7日経つと仮売上は失効します。（設定画面から日数は変更可能です）",
+          "filters": [
+            "\\WebPay\\Api\\GuzzleFilter::booleanToStringFilter"
+          ]
+        },
+        "expire_days": {
+          "location": "postField",
+          "type": "integer",
+          "required": false,
+          "description": "仮売上の有効日数を課金ごとに設定します。初期値の7日、および設定画面で設定した日数を上書きします。1日から45日の間で設定できます。"
+        },
+        "uuid": {
+          "location": "postField",
+          "type": "string",
+          "required": false,
+          "description": "RFC4122に準拠したUUID(例:\"f81d4fae-7dec-11d0-a765-00a0c91e6bf6\")を設定すると、同じUUIDを持つリクエストが複数回送信されたとき、24時間の間に高々一度だけ処理がおこなわれることを保証します。以前の同じUUIDを持つリクエストで作成済みの課金がある場合は、それを通常の作成時と同じように返却します。"
+        }
+      }
+    },
+    "charges.retrieve": {
+      "httpMethod": "GET",
+      "uri": "/v1/charges/{id}",
+      "summary": "課金情報の取得",
+      "parameters": {
+        "id": {
+          "location": "uri",
+          "type": "string",
+          "required": true,
+          "description": "取得する課金オブジェクトを判別する識別用のユニークID。"
+        }
+      }
+    },
+    "charges.refund": {
+      "httpMethod": "POST",
+      "uri": "/v1/charges/{id}/refund",
+      "summary": "課金の払い戻し",
+      "parameters": {
+        "id": {
+          "location": "uri",
+          "type": "string",
+          "required": true,
+          "description": "払い戻しを行う課金オブジェクトの一意な識別ID"
+        },
+        "amount": {
+          "location": "postField",
+          "type": "integer",
+          "required": false,
+          "description": "円単位の正の整数で、払い戻しを行う金額を指定する。当初課金行った額から既に払い戻しを行った額を引いた金額を上限とする。"
+        }
+      }
+    },
+    "charges.capture": {
+      "httpMethod": "POST",
+      "uri": "/v1/charges/{id}/capture",
+      "summary": "仮売上の実売上化",
+      "parameters": {
+        "id": {
+          "location": "uri",
+          "type": "string",
+          "required": true,
+          "description": "実売上化を行う課金オブジェクトの一意な識別ID"
+        },
+        "amount": {
+          "location": "postField",
+          "type": "integer",
+          "required": false,
+          "description": "実売上化をする金額。仮売上の作成時の金額を上限とする。"
+        }
+      }
+    },
+    "charges.all": {
+      "httpMethod": "GET",
+      "uri": "/v1/charges",
+      "summary": "課金リストの取得",
+      "parameters": {
+        "count": {
+          "location": "query",
+          "type": "integer",
+          "required": false,
+          "description": "一度にリストで返す課金オブジェクトの上限数。\"count\"は1から100の間の整数を指定することができます。"
+        },
+        "offset": {
+          "location": "query",
+          "type": "integer",
+          "required": false,
+          "description": "課金オブジェクトのオフセット（始値）の指定。APIは、このオフセットで指定された番号を一番目として、課金オブジェクトのリストを返します。例えば<code>offset=20&amp;count=10</code>であれば、リストの20番目から順番に10個の課金オブジェクトを返します。"
+        },
+        "created": {
+          "location": "query",
+          "type": [
+            "array",
+            "integer"
+          ],
+          "required": false,
+          "description": "作成日でリストを絞り込むことができます。値は正確なUTCタイムスタンプ形式の文字列か、以下のオプションを持つディクショナリです。"
+        },
+        "customer": {
+          "location": "query",
+          "type": "string",
+          "required": false,
+          "description": "顧客ID(customer)を指定した場合、指定された顧客の課金情報のみをリストにして返します。"
+        }
+      }
+    },
+    "customers.create": {
+      "httpMethod": "POST",
+      "uri": "/v1/customers",
+      "summary": "新しい顧客の作成",
+      "parameters": {
+        "card": {
+          "location": "postField",
+          "type": [
+            "array",
+            "string"
+          ],
+          "required": false,
+          "description": "この顧客に関連づけるクレジットカードの情報。カード情報はトークン(識別ID)の文字列か、ユーザーのクレジットカード詳細情報を含んだハッシュ（ディクショナリ）のいずれか。もしあなたがクレジットカード情報を持ったハッシュをAPIへ渡した場合は、自動的にカードの正当性チェックをおこないます。クレジットカードの情報が関連付けられた顧客(\"customer\")は、課金を行う際に使用することができます。"
+        },
+        "email": {
+          "location": "postField",
+          "type": "string",
+          "required": false,
+          "description": "顧客のメールアドレス。この情報はウェブ上のダッシュボードに表示され、また履歴の検索やトラッキング等に使用することができます。"
+        },
+        "description": {
+          "location": "postField",
+          "type": "string",
+          "required": false,
+          "description": "顧客オブジェクトに添付することができる任意の文字列。この情報はウェブ上のダッシュボードで顧客情報を確認する際に表示されます。"
+        },
+        "uuid": {
+          "location": "postField",
+          "type": "string",
+          "required": false,
+          "description": "RFC4122に準拠したUUID(例:\"f81d4fae-7dec-11d0-a765-00a0c91e6bf6\")を設定すると、同じUUIDを持つリクエストが複数回送信されたとき、24時間の間に高々一度だけ処理がおこなわれることを保証します。以前の同じUUIDを持つリクエストで作成済みの課金がある場合は、それを通常の作成時と同じように返却します。"
+        }
+      }
+    },
+    "customers.retrieve": {
+      "httpMethod": "GET",
+      "uri": "/v1/customers/{id}",
+      "summary": "顧客情報の取得",
+      "parameters": {
+        "id": {
+          "location": "uri",
+          "type": "string",
+          "required": true,
+          "description": "取得する顧客(\"customer\")の識別ID"
+        }
+      }
+    },
+    "customers.save": {
+      "httpMethod": "POST",
+      "uri": "/v1/customers/{id}",
+      "summary": "顧客情報の更新",
+      "parameters": {
+        "id": {
+          "location": "uri",
+          "type": "string",
+          "required": true,
+          "description": "更新する顧客(\"customer\")の識別ID"
+        },
+        "card": {
+          "location": "postField",
+          "type": [
+            "array",
+            "string"
+          ],
+          "required": false,
+          "description": "この顧客に関連づける新しいクレジットカードの情報。カード情報はトークン(識別ID)の文字列か、ユーザーのクレジットカード詳細情報を含んだハッシュ（ディクショナリ）のいずれかで良い。もしあなたがクレジットカード情報を持ったハッシュをAPIへ渡した場合は、自動的にカードの正当性チェックをおこないます。クレジットカードの情報が関連付けられた顧客(\"customer\")は、課金を行う際に登録する際に使用することができます。"
+        },
+        "email": {
+          "location": "postField",
+          "type": "string",
+          "required": false,
+          "description": "顧客のメールアドレス。この情報はウェブ上のダッシュボードに表示され、また履歴の検索やトラッキング等に使用することができます。"
+        },
+        "description": {
+          "location": "postField",
+          "type": "string",
+          "required": false,
+          "description": "顧客オブジェクトに添付することができる任意の文字列。この情報はウェブ上のダッシュボードで顧客情報を確認する際に表示されます。"
+        }
+      }
+    },
+    "customers.delete": {
+      "httpMethod": "DELETE",
+      "uri": "/v1/customers/{id}",
+      "summary": "顧客の削除",
+      "parameters": {
+        "id": {
+          "location": "uri",
+          "type": "string",
+          "required": true,
+          "description": "削除する顧客の識別ID"
+        }
+      }
+    },
+    "customers.all": {
+      "httpMethod": "GET",
+      "uri": "/v1/customers",
+      "summary": "顧客リストの取得",
+      "parameters": {
+        "count": {
+          "location": "query",
+          "type": "integer",
+          "required": false,
+          "description": "一度にリストで返す顧客オブジェクトの上限数。\"count\"は1から100の間の整数を指定することができます。"
+        },
+        "offset": {
+          "location": "query",
+          "type": "integer",
+          "required": false,
+          "description": "顧客オブジェクトのオフセット（始値）の指定。APIは、このオフセットで指定された番号を一番目として、顧客オブジェクトのリストを返します。例えば <code>offset=20&amp;count=10</code> であれば、リストの20番目から順番に10個の顧客オブジェクトを返します。"
+        },
+        "created": {
+          "location": "query",
+          "type": [
+            "array",
+            "integer"
+          ],
+          "required": false,
+          "description": "作成日でリストを絞り込むことができます。値は正確なUTCタイムスタンプ形式の文字列か、以下のオプションを持つディクショナリです。"
+        }
+      }
+    },
+    "events.retrieve": {
+      "httpMethod": "GET",
+      "uri": "/v1/events/{id}",
+      "summary": "イベント詳細の取得",
+      "parameters": {
+        "id": {
+          "location": "uri",
+          "type": "string",
+          "required": true,
+          "description": "イベントを取得するための判別子"
+        }
+      }
+    },
+    "events.all": {
+      "httpMethod": "GET",
+      "uri": "/v1/events",
+      "summary": "イベントリストの取得",
+      "parameters": {
+        "count": {
+          "location": "query",
+          "type": "integer",
+          "required": false,
+          "description": "返すオブジェクトの上限数。1から100の間で指定できます。"
+        },
+        "offset": {
+          "location": "query",
+          "type": "integer",
+          "required": false,
+          "description": "返された項目のリストの始まりの値。このオフセットで指定された場所を起点とする要求された数のアイテムをAPIは返します。"
+        },
+        "created": {
+          "location": "query",
+          "type": [
+            "array",
+            "integer"
+          ],
+          "required": false,
+          "description": "作成日でリストを絞り込むことができます。値は正確なUTCタイムスタンプ形式の文字列か、以下のオプションを持つディクショナリです。"
+        },
+        "type": {
+          "location": "query",
+          "type": "string",
+          "required": false,
+          "description": "特定のイベント名を*をワイルドカードとして使用して指定された文字列。ここで指定されたものに一致したイベントのみに返ってくるイベントは絞り込まれます。"
+        }
+      }
+    },
+    "tokens.create": {
+      "httpMethod": "POST",
+      "uri": "/v1/tokens",
+      "summary": "新しいトークンの作成",
+      "parameters": {
+        "card": {
+          "location": "postField",
+          "type": "array",
+          "required": true,
+          "description": "このトークンが実際に表すクレジットカードの詳細情報"
+        },
+        "uuid": {
+          "location": "postField",
+          "type": "string",
+          "required": false,
+          "description": "RFC4122に準拠したUUID(例:\"f81d4fae-7dec-11d0-a765-00a0c91e6bf6\")を設定すると、同じUUIDを持つリクエストが複数回送信されたとき、24時間の間に高々一度だけ処理がおこなわれることを保証します。以前の同じUUIDを持つリクエストで作成済みの課金がある場合は、それを通常の作成時と同じように返却します。"
+        }
+      }
+    },
+    "tokens.retrieve": {
+      "httpMethod": "GET",
+      "uri": "/v1/tokens/{id}",
+      "summary": "作成済みトークンの取得",
+      "parameters": {
+        "id": {
+          "location": "uri",
+          "type": "string",
+          "required": true,
+          "description": "取得したいトークンのID"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+evnt[0] = {'start':'', 'end':'', 'img_path':'', 'audio_id':''};
+evnt[0]['start'] = '3';
+evnt[0]['end'] = '3';
+evnt[0]['img_path'] = '/audio/event/rashomon_short_001.png';
+evnt[0]['audio_id'] = 'rashomon_taiken_001';
+evnt[1] = {'start':'', 'end':'', 'img_path':'', 'audio_id':''};
+evnt[1]['start'] = '4';
+evnt[1]['end'] = '9';
+evnt[1]['img_path'] = '/audio/event/rashomon_short_001.png';
+evnt[1]['audio_id'] = '';
+evnt[2] = {'start':'', 'end':'', 'img_path':'', 'audio_id':''};
+evnt[2]['start'] = '10';
+evnt[2]['end'] = '10';
+evnt[2]['img_path'] = '';
+evnt[2]['audio_id'] = '';

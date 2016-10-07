@@ -1,0 +1,81 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 320px;
+	height: 480px;
+	font-family: 'ヒラギノ明朝ProN W3', 'Hiragino Mincho Pro', YuMincho, '游明朝', serif;
+}
+
+/* contents start */
+#main {
+	width: 320px;
+	height: 480px;
+}
+
+#main article {
+	text-align: center;
+}
+
+h2, #headline {
+	font-family: 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', YuGothic, '游ゴシック', sans-serif;
+}
+
+.error-message, .error {
+	color: red;
+}
+/* contents end */
+
+/* form start */
+form input:not([type='image']):not([type='checkbox']):not([type='button']) {
+	width: 250px;
+	font-size: 14px;
+}
+
+form label {
+	display: block;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	font-family: 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', YuGothic, '游ゴシック', sans-serif;
+}
+
+form input:not([type='image']) {
+	margin-top: 10px;
+	text-align: center;
+}
+
+form select {
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+form div.input {
+	margin-bottom: 20px;
+}
+
+form div.checkbox {
+	position: relative;
+	width: 100%;
+	height: 40px;
+}
+
+form div.checkbox label {
+	position: absolute;
+}
+
+form div.checkbox input {
+	position: absolute;
+	top: 20px;
+	left: 50%;
+}
+
+form div.submit {
+	margin-bottom: 10px;
+}
+/* form end */
+
+/* footer start */
+footer {
+	text-align: center;
+}
+/* footer end */

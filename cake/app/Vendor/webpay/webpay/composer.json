@@ -1,0 +1,22 @@
+{
+  "name": "webpay/webpay",
+  "version": "2.2.2",
+  "description": "Bindings of WebPay API",
+  "license": "MIT",
+  "authors": [{
+    "name": "webpay",
+    "email": "administrators@webpay.jp"
+  }, {
+    "name": "tomykaira",
+    "email": "tomykaira@webpay.jp"
+  }],
+  "require": {
+    "php": ">= 5.3.3",
+    "guzzle/guzzle": "3.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "WebPay\\": "src/"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+#index label {
+	display: block;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	font-family: 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', YuGothic, '游ゴシック', sans-serif;
+}
+
+#index .user_info {
+	margin-bottom: 20px;
+}
+
+#index .user_info div {
+	margin-top: 10px;
+}

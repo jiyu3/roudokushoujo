@@ -1,0 +1,104 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema roudoku
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `roudoku` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `roudoku` ;
+
+-- -----------------------------------------------------
+-- Table `roudoku`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `roudoku`.`users` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(40) NOT NULL,
+  `send_ad_mail` TINYINT(1) NOT NULL DEFAULT 0,
+  `regist_email` VARCHAR(255) NULL,
+  `regist_key` VARCHAR(30) NULL,
+  `created` DATETIME NOT NULL,
+  `modified` DATETIME NULL,
+  `deleted` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `mail_adress_UNIQUE` (`email` ASC),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `regist_key_UNIQUE` (`regist_key` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `roudoku`.`provisional_registrations`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `roudoku`.`provisional_registrations` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(255) NOT NULL,
+  `regist_key` VARCHAR(30) NOT NULL,
+  `created` DATETIME NOT NULL,
+  `modified` DATETIME NULL,
+  `deleted` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `regist_key_UNIQUE` (`regist_key` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `roudoku`.`user_payment_informations`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `roudoku`.`user_payment_informations` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT UNSIGNED NOT NULL,
+  `webpay_customer_id` VARCHAR(50) NOT NULL,
+  `created` DATETIME NOT NULL,
+  `modified` DATETIME NULL,
+  `deleted` DATETIME NULL,
+  PRIMARY KEY (`id`, `user_id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `webpay_customer_id_UNIQUE` (`webpay_customer_id` ASC),
+  INDEX `fk_user_payment_informations_users1_idx` (`user_id` ASC),
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
+  CONSTRAINT `fk_user_payment_informations_users1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `roudoku`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `roudoku`.`payments`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `roudoku`.`payments` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT UNSIGNED NOT NULL,
+  `webpay_customer_id` VARCHAR(50) NOT NULL,
+  `webpay_charge_id` VARCHAR(50) NULL,
+  `webpay_recursion_id` VARCHAR(45) NULL,
+  `amount` SMALLINT NOT NULL,
+  `commencement` DATETIME NOT NULL,
+  `expiration` DATETIME NULL,
+  `created` DATETIME NOT NULL,
+  `modified` DATETIME NULL,
+  `deleted` DATETIME NULL,
+  PRIMARY KEY (`id`, `user_id`),
+  INDEX `fk_payments_users1_idx` (`user_id` ASC),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  CONSTRAINT `fk_payments_users1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `roudoku`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+use mysql;
+delete from user where user='noumenon';
+grant all privileges on roudoku.* to noumenon@"133.130.54.99" identified by 'pheno1192' with grant option;
+grant all privileges on roudoku.* to noumenon@"133.130.59.45" identified by 'pheno1192' with grant option;

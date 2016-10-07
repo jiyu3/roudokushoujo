@@ -1,0 +1,384 @@
+/* main start */
+#main {
+	z-index: 1;
+	position: relative;
+}
+
+#main_screen {
+	width: 50%;
+	height: 100%;
+}
+
+#main_background {
+	background-size: contain;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+#event_background {
+	background-size: contain;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+}
+
+#chair {
+	background-size: contain;
+	z-index: 2;
+	width: 320px;
+	height: 480px;
+	position: absolute;
+}
+/* main end */
+
+/* sns start */
+#sns img {
+	opacity:0.8;
+}
+
+#twitter {
+	z-index: 4;
+	position: absolute;
+	top: 130px;
+	left: 270px;
+}
+
+#facebook {
+	z-index: 4;
+	position: absolute;
+	top: 180px;
+	left: 270px;
+}
+
+#line {
+	z-index: 4;
+	position: absolute;
+	top: 230px;
+	left: 270px;
+}
+
+#pinterest {
+	z-index: 4;
+	position: absolute;
+	top: 280px;
+	left: 270px;
+}
+
+#email {
+	z-index: 4;
+	position: absolute;
+	top: 330px;
+	left: 270px;
+}
+/* sns end */
+
+/* sidebar start */
+#sidebar {
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 10;
+	background-color: white;
+	border: black 1px solid;
+	display: none;
+}
+
+#search {
+	font-family: 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', YuGothic, '游ゴシック', sans-serif;
+	font-size: 16px;
+}
+
+#audio_links {
+	font-family: 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', YuGothic, '游ゴシック', sans-serif;
+	font-size: 12px;
+	position: relative;
+	height: 480px;
+	width: 100%;
+	overflow: scroll;
+	white-space : nowrap;
+	z-index: 3;
+	overflow-x: hidden;
+}
+
+#audio_links h3 {
+	font-size: 18px;
+	margin-top: 6px;
+	margin-left: -2px;
+	margin-bottom: 4px;
+}
+
+#audio_links a {
+	margin-left: 20px;
+	text-decoration:none;
+	color: black;
+}
+
+#audio_links td {
+	line-height: 21px;
+	font-size: 16px;
+}
+
+#recommendation {
+	font-family: 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', YuGothic, '游ゴシック', sans-serif;
+	font-size: 16px;
+	position: absolute;
+	z-index: 4;
+	top: 0;
+	right: -1px;
+	width: 100%;
+	height: 20%;
+	margin-top: 60%;
+}
+/* sidebar end*/
+
+/* others start*/
+#loading {
+	border: 1px solid black;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	vertical-align: middle;
+	background-color: white;
+	position: absolute;
+	z-index: 11;
+}
+
+#bumper {
+	position: absolute;
+	z-index: 12;
+	bottom: 40px;
+	left: 10px;
+	border: lightgrey 1px solid;
+}
+
+#skip {
+	width: 64px;
+	height: 52px;
+	background-color: rgba(255,255,255,0);
+	position: absolute;
+	z-index: 12;
+	display: none;
+	left: 0;
+}
+
+#setting_open, #setting_close{
+	z-index: 10;
+	width: 50px;
+	height: 50px;
+	top: 1px;
+	right: 1px;
+	background-color: rgba(255,255,255,0.5);
+	position: absolute;
+}
+
+#setting_close{
+	z-index: 11;
+	background-color: rgba(255,255,255,1);
+	display: none;
+}
+
+#user {
+	z-index: 10;
+	width: 50px;
+	height: 50px;
+	top: 52px;
+	right: 1px;
+	background-color: rgba(255,255,255,0.5);
+	position: absolute;
+}
+/* others end */
+
+/* character start */
+.character {
+	background-size: contain;
+	text-align: left;
+	top: 0;
+	width: 50%;
+	height: 100%;
+	position: absolute;
+	z-index: 3;
+}
+
+.character img {
+	height: 100%;
+	position: absolute;
+	display: none;
+}
+
+.t:not(.paging):not(.blinking) {
+	z-index: 3;
+}
+
+.a:not(.paging):not(.blinking), .n:not(.paging):not(.blinking) {
+	z-index: 4;
+}
+
+.t.paging, .t.blinking {
+	z-index: 4;
+}
+
+.a.blinking, .a.paging, .n.blinking, .n.paging {
+	z-index: 5;
+}
+/* character end */
+
+/* objects start */
+#clock {
+	top: 0; 
+	left: 128px;
+	width: 70px;
+	height: 105px;
+	display: block;
+	position: absolute;
+	z-index: 6;
+}
+
+#weather {
+	position: absolute;
+	z-index: 6;
+	top: 70px;
+	width: 75px;
+	height: 75px;
+}
+
+#weather_display {
+	position: absolute;
+	z-index: 6;
+	top: 140px;
+	height: 75px;
+	left: 130px;
+}
+
+#affiliate {
+	top: 230px;
+	left: -10px;
+	width: 320px;
+	height: 20px;
+	position: absolute;
+}
+/* objects end */
+
+
+/* subtitles start */
+#subtitles {
+	font-size: 16px;
+	line-height: 26px;
+	top: 72%;
+	left: 8%;
+	width: 240px;
+	height: 80px;
+	position: absolute;
+	color: white;
+	z-index: 7;
+}
+
+/* subtitles end */
+
+/* player start */
+#main_player {
+	top: 88%;
+	left: 10px;
+	z-index: 10;
+	width: 300px;
+	height: 30px;
+	margin: 0 auto;
+	position: absolute;
+}
+
+#next {
+	position: absolute;
+	bottom: 120%;
+	left: 85%;
+	cursor: pointer;
+	opacity: 0.9;
+}
+
+#sub_players {
+	display: none;
+}
+/* player end */
+
+/* body start */
+.face {
+	top: 120px;
+	left: 80px;
+	width: 50px;
+	height: 60px;
+	display: block;
+	position: absolute;
+	z-index: 6;
+}
+
+.shoulders {
+	top: 185px;
+	left: 65px;
+	width: 70px;
+	height: 20px;
+	display: block;
+	position: absolute;
+	z-index: 6;
+}
+
+.upperarm {
+	top: 208px;
+	left: 65px;
+	width: 20px;
+	height: 25px;
+	display: block;
+	position: absolute;
+	z-index: 6;
+}
+
+.forearm {
+	top: 233px;
+	left: 65px;
+	width: 37px;
+	height: 30px;
+	display: block;
+	position: absolute;
+	z-index: 6;
+}
+
+.boobs {
+	top: 205px;
+	left: 83px;
+	width: 50px;
+	height: 22px;
+	display: block;
+	position: absolute;
+	z-index: 6;
+}
+
+.book {
+	top: 227px;
+	left: 100px;
+	width: 77px;
+	height: 21px;
+	display: block;
+	position: absolute;
+	z-index: 6;
+}
+
+.skirt {
+	top: 270px;
+	left: 70px;
+	width: 70px;
+	height: 60px;
+	display: block;
+	position: absolute;
+	z-index: 6;
+}
+
+.legs {
+	top: 300px;
+	left: 140px;
+	width: 50px;
+	height: 130px;
+	display: block;
+	position: absolute;
+	z-index: 6;
+}
+/* body end */

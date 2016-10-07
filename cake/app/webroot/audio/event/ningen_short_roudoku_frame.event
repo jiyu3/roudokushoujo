@@ -1,0 +1,5 @@
+evnt[0] = {'start':'', 'end':'', 'img_path':'', 'audio_id':''};
+evnt[0]['start'] = '4';
+evnt[0]['end'] = '17';
+evnt[0]['img_path'] = '/audio/event/ningen_short_001.png';
+evnt[0]['audio_id'] = '';
