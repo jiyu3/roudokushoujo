@@ -1,2 +1,2 @@
 # roudokushoujo
-souce code of http://roudokushoujo.com/
+souce code of http://roudokushoujo.jimdo.com/ (Now it's closed.)
